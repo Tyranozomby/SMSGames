@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SMS Games</string>
+    <string name="title_activity_edit_gamemode">EditGamemodeActivity</string>
+    <string name="title_activity_view_game">ViewGameActivity</string>
+</resources>

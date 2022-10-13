@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.tyrano.smsgames">
+
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+
+    <application
+            android:name=".activities.MyApp"
+            android:allowBackup="true"
+            android:dataExtractionRules="@xml/data_extraction_rules"
+            android:fullBackupContent="@xml/backup_rules"
+            android:icon="@mipmap/ic_launcher_foreground"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/Theme.SMSGames"
+            tools:targetApi="31">
+        <receiver
+                android:name=".engine.SMSReceiver"
+                android:enabled="true"
+                android:exported="true" android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+                android:name=".activities.EditGamemodeActivity"
+                android:exported="false"
+                android:label="@string/title_activity_edit_gamemode"
+                android:theme="@style/Theme.SMSGames"/>
+        <activity
+                android:name=".activities.ViewGameActivity"
+                android:exported="false"
+                android:label="@string/title_activity_view_game"
+                android:theme="@style/Theme.SMSGames"/>
+        <activity
+                android:name=".activities.MainActivity"
+                android:exported="true"
+                android:theme="@style/Theme.SMSGames">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
