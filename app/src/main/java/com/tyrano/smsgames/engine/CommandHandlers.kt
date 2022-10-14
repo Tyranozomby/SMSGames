@@ -1,6 +1,5 @@
 package com.tyrano.smsgames.engine
 
-import android.util.Log
 import com.github.ajalt.clikt.core.*
 import com.github.ajalt.clikt.output.CliktConsole
 import com.github.ajalt.clikt.output.Localization

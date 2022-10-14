@@ -23,6 +23,10 @@ fun getPreviewLightGamemodeListVM(): ILightGamemodeListVM {
 
         override fun delete(lightGamemode: LightGamemode) {
         }
+
+        override fun countGames(lightGamemode: LightGamemode): Int {
+            return 0
+        }
     }
 }
 

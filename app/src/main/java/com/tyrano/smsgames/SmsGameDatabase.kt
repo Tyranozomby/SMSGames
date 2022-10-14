@@ -1,8 +1,7 @@
 package com.tyrano.smsgames
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
+import androidx.room.*
+import androidx.room.migration.AutoMigrationSpec
 import com.tyrano.smsgames.converters.InstantConverter
 import com.tyrano.smsgames.converters.JsonConverter
 import com.tyrano.smsgames.dao.GameDao
@@ -14,11 +13,17 @@ import com.tyrano.smsgames.entities.PlayerEntity
 
 @Database(
     entities = [GamemodeEntity::class, GameEntity::class, PlayerEntity::class],
-    version = 1,
-    exportSchema = false,
+    version = 3,
+    exportSchema = true,
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2, spec = SmsGameDatabase.MyAutoMigration::class),
+        AutoMigration(from = 2, to = 3, spec = SmsGameDatabase.MyAutoMigration::class)
+    ]
 )
 @TypeConverters(value = [InstantConverter::class, JsonConverter::class])
 abstract class SmsGameDatabase : RoomDatabase() {
+    class MyAutoMigration : AutoMigrationSpec
+
     abstract fun gamemodeDao(): GamemodeDao
     abstract fun gameDao(): GameDao
     abstract fun playerDao(): PlayerDao

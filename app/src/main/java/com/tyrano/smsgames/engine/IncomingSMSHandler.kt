@@ -20,6 +20,7 @@ class IncomingSMSHandler(database: SmsGameDatabase, context: Context) {
     private val gamemodeDao: GamemodeDao = database.gamemodeDao()
     private val gameDao: GameDao = database.gameDao()
 
+    @Suppress("DEPRECATION")
     private val smsManager = SmsManager.getDefault()
 
     private val datastore = StoreParameters(context)
@@ -30,9 +31,8 @@ class IncomingSMSHandler(database: SmsGameDatabase, context: Context) {
     fun handleMessage(from: String, message: String) {
         Log.d(TAG, "analyseMessage: $from - $message")
 
-        val player: PlayerEntity?
-        runBlocking {
-            player = playerDao.getByNumber(from)
+        val player: PlayerEntity? = runBlocking {
+            playerDao.getByNumber(from)
         }
 
         if (player == null) {

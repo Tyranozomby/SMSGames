@@ -4,7 +4,11 @@ import androidx.room.*
 
 @Entity(
     tableName = "player",
-    indices = [Index(name = "phone_number_index", unique = true, value = ["phone_number"])],
+    indices = [Index(
+        name = "phone_number_index",
+        unique = true,
+        value = ["phone_number"]
+    ), Index(name = "game_id_index", value = ["game_id"])],
     foreignKeys = [ForeignKey(
         entity = GameEntity::class,
         parentColumns = ["id"],

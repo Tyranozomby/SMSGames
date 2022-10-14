@@ -8,7 +8,6 @@ import com.tyrano.smsgames.dao.GamemodeDao
 import com.tyrano.smsgames.entities.GamemodeEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import org.intellij.lang.annotations.Language
 import org.json.JSONObject
 import javax.inject.Inject
 import kotlin.reflect.KProperty
@@ -64,8 +63,10 @@ class GamemodeVM @Inject constructor(private val dao: GamemodeDao) : ViewModel()
         
         const player = await owner.askForPlayer("Choisissez un joueur");
         
+        player.send("Bienvenue " + player.name); // Nom du joueur
+        
         // Envoie un message à tous les joueurs
-        broadcast("Bonjour à tous", [owner, player]);
+        broadcast("Bonjour à tous " + params.clé, [owner, player]);
     }
     """.trimIndent()
         )

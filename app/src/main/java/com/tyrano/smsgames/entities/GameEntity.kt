@@ -1,9 +1,6 @@
 package com.tyrano.smsgames.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.time.Instant
@@ -15,7 +12,10 @@ import java.time.Instant
         parentColumns = ["id"],
         childColumns = ["gamemode_id"],
         onDelete = ForeignKey.CASCADE
-    )]
+    )],
+    indices = [
+        Index(name = "gamemode_id_index", value = ["gamemode_id"])
+    ]
 )
 data class GameEntity(
 
