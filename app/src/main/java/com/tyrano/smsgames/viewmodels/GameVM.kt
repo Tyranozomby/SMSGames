@@ -52,7 +52,7 @@ class GameVM @Inject constructor(private val gameDao: GameDao, private val playe
                 owner = playerDao.getById(detailed.ownerId)
                 start = detailed.start
                 players = gameDao.getAllInGame(id)
-                data = detailed.data
+                data = detailed.data ?: JSONObject()
                 settings = detailed.settings
             }
         }

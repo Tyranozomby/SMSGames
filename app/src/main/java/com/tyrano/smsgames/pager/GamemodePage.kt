@@ -101,14 +101,24 @@ private fun GamemodeComponent(viewModel: ILightGamemodeListVM, gamemode: LightGa
             }
         }
         if (delete) {
-            ConfirmDialog(
-                title = "Suppression d'un jeu",
-                content = "Êtes-vous sûr de vouloir supprimer ${gamemode.name} ?",
-                confirm = "Oui",
-                dismiss = "Non",
-                onConfirm = { viewModel.delete(gamemode); delete = false },
-                onDismiss = { delete = false }
-            )
+            if (viewModel.countGames(gamemode) == 0)
+                ConfirmDialog(
+                    title = "Suppression d'un jeu",
+                    content = "Êtes-vous sûr de vouloir supprimer ${gamemode.name} ?",
+                    confirm = "Oui",
+                    dismiss = "Non",
+                    onConfirm = { viewModel.delete(gamemode); delete = false },
+                    onDismiss = { delete = false }
+                )
+            else
+                ConfirmDialog(
+                    title = "Suppression d'un jeu",
+                    content = "Êtes-vous sûr de vouloir supprimer ${gamemode.name} ainsi que toutes les parties en cours lui étant associées ?",
+                    confirm = "Oui",
+                    dismiss = "Non",
+                    onConfirm = { viewModel.delete(gamemode); delete = false },
+                    onDismiss = { delete = false }
+                )
         }
     }
 }

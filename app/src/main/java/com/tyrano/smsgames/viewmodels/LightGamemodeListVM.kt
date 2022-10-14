@@ -7,16 +7,19 @@ import com.tyrano.smsgames.light.LightGamemode
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 interface ILightGamemodeListVM {
     val lightGamemodes: Flow<List<LightGamemode>>
     fun toggle(lightGamemode: LightGamemode)
     fun delete(lightGamemode: LightGamemode)
+    fun countGames(lightGamemode: LightGamemode): Int
 }
 
 @HiltViewModel
-class LightGamemodeListVM @Inject constructor(private val dao: GamemodeDao) : ViewModel(), ILightGamemodeListVM {
+class LightGamemodeListVM @Inject constructor(private val dao: GamemodeDao) : ViewModel(),
+    ILightGamemodeListVM {
 
     override val lightGamemodes = dao.getAllLight()
 
@@ -29,6 +32,12 @@ class LightGamemodeListVM @Inject constructor(private val dao: GamemodeDao) : Vi
     override fun delete(lightGamemode: LightGamemode) {
         viewModelScope.launch {
             dao.delete(lightGamemode)
+        }
+    }
+
+    override fun countGames(lightGamemode: LightGamemode): Int {
+        return runBlocking {
+            dao.countRelatedGames(lightGamemode.id)
         }
     }
 }

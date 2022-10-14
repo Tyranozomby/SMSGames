@@ -86,10 +86,13 @@ class GameManager(
             return@runBlocking gameDao.get(gameId)
         }
         Log.d(TAG, "createGame: start")
-        games[game.id] = GameInstance(game, gamemode, gameDao, playerDao, smsHandler, this, appContext)
+        games[game.id] =
+            GameInstance(game, gamemode, gameDao, playerDao, smsHandler, this, appContext)
     }
 
-    fun dramaticallyDestroyTheGameAndReduceItToDustWithALotOfVFXAndBigExplosionsLikeMichealBay(gameId: Long) {
+    fun dramaticallyDestroyTheGameAndReduceItToDustWithALotOfVFXAndBigExplosionsLikeMichealBay(
+        gameId: Long
+    ) {
         games.remove(gameId)
         runBlocking {
             gameDao.delete(gameId)
@@ -165,7 +168,11 @@ class GameInstance(
 
         val params = context.createNewJSObject()
         for (key in gamemode.settings.keys()) {
-            context.setProperty(params, key, if (game.settings.has(key)) game.settings[key] else gamemode.settings[key])
+            context.setProperty(
+                params,
+                key,
+                if (game.settings.has(key)) game.settings[key] else gamemode.settings[key]
+            )
         }
         context.globalObject.setProperty("params", params)
 
@@ -375,7 +382,9 @@ class GameInstance(
         executor.submit {
             context.destroyContext()
         }
-        gameManager.dramaticallyDestroyTheGameAndReduceItToDustWithALotOfVFXAndBigExplosionsLikeMichealBay(game.id)
+        gameManager.dramaticallyDestroyTheGameAndReduceItToDustWithALotOfVFXAndBigExplosionsLikeMichealBay(
+            game.id
+        )
     }
 
     private fun createPromise(): CreatedPromise {
@@ -411,8 +420,8 @@ abstract class SMSPrompt<out T>(
         return if (validated != null) {
             executor.submit {
                 resolveFunc.call(validated)
+                //promptList.remove(this as SMSPrompt<*>)
             }
-            promptList.remove(this as SMSPrompt<*>)
             true
         } else {
             smsHandler.sendSMS(to, promptMessage)
@@ -513,7 +522,10 @@ class PromptPlayer(
 
         runBlocking {
             gameInstance.playerDao.setGame(player!!.id, gameInstance.game.id)
-            gameInstance.gameDao.savePlayersOrderOf(gameInstance.game.id, gameInstance.playersOrder.put(player!!.id))
+            gameInstance.gameDao.savePlayersOrderOf(
+                gameInstance.game.id,
+                gameInstance.playersOrder.put(player!!.id)
+            )
         }
         smsHandler.sendSMS(player!!.phoneNumber, gameInstance.gamemode.rules)
 
@@ -531,13 +543,19 @@ class PromptPlayer(
                 player!!.phoneNumber,
                 "L'invitation de ${owner.name} pour ${gameInstance.gamemode.name} a été rejeté"
             )
-            smsHandler.sendSMS(to, "${player!!.name} a rejeté votre invitation.\nVeuillez entrer un nouveau numéro")
+            smsHandler.sendSMS(
+                to,
+                "${player!!.name} a rejeté votre invitation.\nVeuillez entrer un nouveau numéro"
+            )
         } else {
             smsHandler.sendSMS(
                 player!!.phoneNumber,
                 "Votre invitation pour ${gameInstance.gamemode.name} de ${owner.name} a expiré"
             )
-            smsHandler.sendSMS(to, "L'invitation de ${player!!.name} a expiré.\nVeuillez entrer un nouveau numéro")
+            smsHandler.sendSMS(
+                to,
+                "L'invitation de ${player!!.name} a expiré.\nVeuillez entrer un nouveau numéro"
+            )
         }
         player = null
     }

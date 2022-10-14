@@ -48,7 +48,7 @@ interface GameDao {
     data class DetailedGame(
         val id: Long,
         val ownerId: Long,
-        val data: JSONObject,
+        val data: JSONObject?,
         val settings: JSONObject,
         val start: Instant?,
         val gamemodeName: String

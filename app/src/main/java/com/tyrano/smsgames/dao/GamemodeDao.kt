@@ -31,4 +31,7 @@ interface GamemodeDao {
 
     @Delete(entity = GamemodeEntity::class)
     suspend fun delete(gamemode: LightGamemode)
+
+    @Query("SELECT COUNT(id) FROM game WHERE gamemode_id = :id")
+    suspend fun countRelatedGames(id: Long) : Int
 }

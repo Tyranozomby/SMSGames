@@ -10,7 +10,12 @@ import java.time.Instant
 
 @Entity(
     tableName = "game",
-    foreignKeys = [ForeignKey(entity = GamemodeEntity::class, parentColumns = ["id"], childColumns = ["gamemode_id"])]
+    foreignKeys = [ForeignKey(
+        entity = GamemodeEntity::class,
+        parentColumns = ["id"],
+        childColumns = ["gamemode_id"],
+        onDelete = ForeignKey.CASCADE
+    )]
 )
 data class GameEntity(
 

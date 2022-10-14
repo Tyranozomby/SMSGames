@@ -1,6 +1,7 @@
 package com.tyrano.smsgames.entities
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import org.json.JSONObject
 

@@ -80,7 +80,7 @@ class CustomLocalization : Localization {
 
 
     override fun usageTitle(): String {
-        return "Toutes les commandes commencent par un !\n\nUtilisation :\n"
+        return "Toutes les commandes commencent par un ${Main.COMMAND_PREFIX}\n\nUtilisation :\n"
     }
 }
 
@@ -283,7 +283,6 @@ class DeleteGamesCommand(private val gameDao: GameDao) :
     BaseCommand(DELETE_GAMES_CMD, "Supprimer les parties parce que j'ai tout cassé") {
 
     override fun run() {
-        Log.d(TAG, "run: ici")
         runBlocking {
             gameDao.getAll().forEach { gameDao.delete(it.id) }
         }
