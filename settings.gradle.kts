@@ -19,6 +19,7 @@ dependencyResolutionManagement {
         mavenCentral()
         maven("https://packages.jetbrains.team/maven/p/firework/dev")
         maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+        maven("https://jitpack.io")
     }
 }
 
