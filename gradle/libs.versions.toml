@@ -1,6 +1,7 @@
 [versions]
 activityCompose = "1.10.1"
 agp = "8.8.2"
+arrow = "2.0.1"
 composeBom = "2025.02.00"
 coreKtx = "1.15.0"
 espressoCore = "3.6.1"
@@ -26,6 +27,9 @@ androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
+arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
+arrow-fx-coroutines = { module = "io.arrow-kt:arrow-fx-coroutines", version.ref = "arrow" }
+
 codeEditor = { module = "com.github.qawaz:compose-code-editor", version = "2.0.3" }
 
 koin = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
@@ -35,6 +39,8 @@ koin-navigation = { module = "io.insert-koin:koin-compose-viewmodel-navigation",
 
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version = "0.6.1" }
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.8.0" }
+
+quickjs = { module = "io.github.dokar3:quickjs-kt", version = "1.0.0-alpha13" }
 
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
@@ -56,6 +62,7 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 
 [bundles]
 androidx-compose = ["androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material3"]
+arrow = ["arrow-core", "arrow-fx-coroutines"]
 koin = ["koin", "koin-android", "koin-viewmodel", "koin-navigation"]
 room = ["room-ktx", "room-runtime", "sqlite"]
 

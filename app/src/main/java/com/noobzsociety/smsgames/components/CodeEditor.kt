@@ -105,7 +105,6 @@ private fun TextField(
     var previousValue by remember { mutableStateOf(startValue) }
 
     fun update(newValue: TextFieldValue) {
-        println(newValue)
         // Update the previous value
         previousValue = newValue.text
 
