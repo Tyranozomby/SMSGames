@@ -1,14 +1,29 @@
 package com.noobzsociety.smsgames.room.converters
 
 import androidx.room.TypeConverter
-import kotlinx.serialization.json.Json
+import org.json.JSONArray
+import org.json.JSONObject
 
 class JsonConverters {
-    private val json = Json { ignoreUnknownKeys = true }
+    @TypeConverter
+    fun objectToString(json: JSONObject?): String? {
+        return json?.toString()
+    }
 
     @TypeConverter
-    fun stringListToJSON(value: List<String>): String = json.encodeToString(value)
+    fun stringToJsonObject(value: String?): JSONObject? {
+        if (value == null)
+            return null
+        return JSONObject(value)
+    }
 
     @TypeConverter
-    fun jsonToStringList(value: String): List<String> = json.decodeFromString(value)
+    fun fromArrayToString(jsonArray: JSONArray): String {
+        return jsonArray.toString()
+    }
+
+    @TypeConverter
+    fun stringToArray(value: String): JSONArray {
+        return JSONArray(value)
+    }
 }
