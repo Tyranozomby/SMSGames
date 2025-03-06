@@ -28,16 +28,29 @@ fun HomeScreen(
     var text by remember {
         mutableStateOf(
             """
-            function setup() {
+             export function setup() {
                 return {
                     foo: 42,
-                    bar: "Hello, world!"
-                }
-            }
-            
-            function main() {
-                console.log(JSON.stringify(this))
-            }
+                    bar: "Hello, test!",
+                    test: {
+                        truc: 69
+                    },
+                    array: [1, 2, 3],
+                    func: function() {
+                        return 42;
+                    }
+                };
+            };
+
+             export function main() {
+                console.log(this);
+                console.log(JSON.stringify(this));
+                console.log(this.func())
+
+                this.foo = 43;
+                this.bar = "Hello, universe!";
+                this.test.truc = 70;
+            };
             """.trimIndent()
         )
     }

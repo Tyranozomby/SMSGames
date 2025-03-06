@@ -65,18 +65,18 @@ dependencies {
     implementation(libs.bundles.room)
 
     // Arrow
-    implementation(libs.arrow.core)
-    implementation(libs.arrow.fx.coroutines)
+    implementation(libs.bundles.arrow)
 
     // Code editor
     implementation(libs.codeEditor)
 
     // QuickJS
-    implementation(libs.quickjs)
+    api(libs.quickjs)
 
     // Testing
     testImplementation(libs.junit)
     testImplementation(libs.koin.test)
+    testImplementation(libs.kotlinx.coroutines.test)
 
     // Android testing
     androidTestImplementation(libs.androidx.junit)

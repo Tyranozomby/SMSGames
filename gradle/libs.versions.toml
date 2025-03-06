@@ -40,7 +40,7 @@ koin-navigation = { module = "io.insert-koin:koin-compose-viewmodel-navigation",
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version = "0.6.1" }
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.8.0" }
 
-quickjs = { module = "io.github.dokar3:quickjs-kt", version = "1.0.0-alpha13" }
+quickjs = { module = "wang.harlon.quickjs:wrapper-android", version = "2.4.4" }
 
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
@@ -50,6 +50,7 @@ sqlite = { module = "androidx.sqlite:sqlite-bundled", version = "2.1.0" }
 # Test
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 koin-test = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version = "1.10.1" }
 
 # Android Test
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
