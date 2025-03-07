@@ -2,16 +2,16 @@ package com.noobzsociety.smsgames.quickjs
 
 import android.util.Log
 import arrow.core.Either
+import arrow.core.raise.Raise
 import arrow.core.raise.either
 import arrow.core.raise.ensure
 import com.whl.quickjs.android.QuickJSLoader
-import com.whl.quickjs.wrapper.JSMethod
 import com.whl.quickjs.wrapper.QuickJSContext
 import com.whl.quickjs.wrapper.QuickJSException
 
-private const val TAG = "QuickJsExecutor"
+private val TAG = QuickJsExecutor::class.simpleName
 
-abstract class QuickJsExecutor {
+class QuickJsExecutor {
 
     sealed class RunError {
         data class ScriptParsingError(val message: String) : RunError()
@@ -25,10 +25,10 @@ abstract class QuickJsExecutor {
     }
 
     private val quickJs: QuickJSContext = QuickJSContext.create().apply {
+        // TODO: Save logs for in-app console for easier debugging
         setConsole(object : QuickJSContext.Console {
-            @JSMethod
             override fun log(info: String?) {
-                Log.i(TAG, "log: $info")
+                Log.d(TAG, "log: $info")
             }
 
             override fun info(info: String?) {
@@ -45,20 +45,8 @@ abstract class QuickJsExecutor {
         })
     }
 
-    abstract fun log(vararg args: Any?)
-
     fun run(script: String, filename: String): Either<RunError, Unit> = either {
-        try {
-            quickJs.evaluateModule(script, filename)
-        } catch (e: QuickJSException) {
-            val message = e.message!!
-
-            // If the error is a syntax error, we return a ScriptParsingError
-            ensure(!message.startsWith("SyntaxError")) { RunError.ScriptParsingError(message) }
-
-            // Otherwise, we return a RuntimeError
-            raise(RunError.RuntimeError(message))
-        }
+        checkScriptSyntax(script, filename)
 
         quickJs.moduleLoader = object : QuickJSContext.DefaultModuleLoader() {
             override fun getModuleStringCode(moduleName: String?) = when (moduleName) {
@@ -67,42 +55,12 @@ abstract class QuickJsExecutor {
             }
         }
 
-        try {
-            quickJs.evaluateModule(
-                """
-                import { setup } from "$filename";
-
-                // Check if the setup function is defined
-                if (typeof setup !== "function") {
-                    throw new Error("The setup function is not defined");
-                }
-                """.trimIndent(),
-                "setup_testing.js"
-            )
-        } catch (e: QuickJSException) {
-            e.printStackTrace()
-            raise(RunError.SetupFunctionNotDefined)
-        }
+        checkForFunction("setup", filename, RunError.SetupFunctionNotDefined)
+        checkForFunction("main", filename, RunError.MainFunctionNotDefined)
 
         try {
             quickJs.evaluateModule(
-                """
-                import { main } from "$filename";
-
-                // Check if the main function is defined
-                if (typeof main !== "function") {
-                    throw new Error("The main function is not defined");
-                }
-                """.trimIndent(),
-                "main_testing.js",
-            )
-        } catch (e: QuickJSException) {
-            e.printStackTrace()
-            raise(RunError.MainFunctionNotDefined)
-        }
-
-        try {
-            quickJs.evaluateModule(
+                // TODO: On update, save in DB
                 """
                 import { setup, main } from "$filename";
                 
@@ -111,6 +69,11 @@ abstract class QuickJsExecutor {
                 const proxy = new Proxy(truc, {
                     set: function (target, key, value) {
                         target[key] = value;
+                        console.log(JSON.stringify(target));
+                        return true;
+                    },
+                    deleteProperty: function (target, key) {
+                        delete target[key];
                         console.log(JSON.stringify(target));
                         return true;
                     }
@@ -124,10 +87,40 @@ abstract class QuickJsExecutor {
             raise(RunError.RuntimeError(e.message!!))
         }
     }
-}
 
-class DefaultQuickJsExecutor : QuickJsExecutor() {
-    override fun log(vararg args: Any?) {
-        println("Log: ${args.joinToString(separator = " ")}")
+    private fun Raise<RunError>.checkForFunction(
+        function: String,
+        filename: String,
+        error: RunError
+    ) {
+        try {
+            quickJs.evaluateModule(
+                """
+                import { $function } from "$filename";
+    
+                if (typeof $function !== "function") {
+                    throw new Error("Function is not defined");
+                }
+                """.trimIndent(),
+                "${function}_testing.js",
+            )
+        } catch (e: QuickJSException) {
+            e.printStackTrace()
+            raise(error)
+        }
+    }
+
+    private fun Raise<RunError>.checkScriptSyntax(script: String, filename: String) {
+        try {
+            quickJs.evaluateModule(script, filename)
+        } catch (e: QuickJSException) {
+            val message = e.message!!
+
+            // If the error is a syntax error, we return a ScriptParsingError
+            ensure(!message.startsWith("SyntaxError")) { RunError.ScriptParsingError(message) }
+
+            // Otherwise, we return a RuntimeError
+            raise(RunError.RuntimeError(message))
+        }
     }
 }

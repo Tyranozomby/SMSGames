@@ -14,7 +14,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.noobzsociety.smsgames.components.CodeEditor
-import com.noobzsociety.smsgames.quickjs.DefaultQuickJsExecutor
 import com.noobzsociety.smsgames.quickjs.QuickJsExecutor
 import com.noobzsociety.smsgames.ui.theme.SMSGamesTheme
 import kotlinx.coroutines.launch
@@ -55,7 +54,7 @@ fun HomeScreen(
         )
     }
 
-    val quickJs = DefaultQuickJsExecutor()
+    val quickJs = QuickJsExecutor()
 
     val scope = rememberCoroutineScope()
 
