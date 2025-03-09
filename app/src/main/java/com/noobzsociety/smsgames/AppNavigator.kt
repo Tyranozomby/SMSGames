@@ -1,5 +1,6 @@
 package com.noobzsociety.smsgames
 
+import android.Manifest
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,13 +13,27 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.noobzsociety.smsgames.navigation.AppScreen
 import com.noobzsociety.smsgames.navigation.NavigationBar
-import com.noobzsociety.smsgames.presentation.HomeScreen
+import com.noobzsociety.smsgames.presentation.home.HomeScreen
+import com.noobzsociety.smsgames.presentation.permissions.PermissionsScreen
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun AppNavigator() {
     val navHostController: NavHostController = rememberNavController()
+
+    val smsPermissionsState = rememberMultiplePermissionsState(
+        listOf(
+            Manifest.permission.SEND_SMS,
+            Manifest.permission.RECEIVE_SMS,
+            Manifest.permission.READ_SMS
+        )
+    )
+    val allPermissionsGranted = smsPermissionsState.permissions.all { it.status.isGranted }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -33,7 +48,10 @@ fun AppNavigator() {
                 .padding(innerPadding)
                 .padding(horizontal = 16.dp),
             navController = navHostController,
-            startDestination = AppScreen.HomeScreen,
+            startDestination = when (allPermissionsGranted) {
+                true -> AppScreen.HomeScreen
+                false -> AppScreen.PermissionsScreen
+            },
             enterTransition = {
                 EnterTransition.None
             },
@@ -47,6 +65,10 @@ fun AppNavigator() {
                 ExitTransition.None
             }
         ) {
+            composable<AppScreen.PermissionsScreen> {
+                PermissionsScreen(smsPermissionsState)
+            }
+
             composable<AppScreen.HomeScreen> {
                 HomeScreen(navHostController)
             }

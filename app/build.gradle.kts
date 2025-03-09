@@ -49,6 +49,8 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
 
+    implementation(libs.accompanist.permissions)
+
     // Compose
     implementation(libs.bundles.androidx.compose)
     implementation (libs.androidx.navigation.compose)

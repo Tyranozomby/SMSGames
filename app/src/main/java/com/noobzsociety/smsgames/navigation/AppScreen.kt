@@ -6,5 +6,8 @@ import kotlinx.serialization.Serializable
 sealed interface AppScreen {
 
     @Serializable
+    data object PermissionsScreen : AppScreen
+
+    @Serializable
     data object HomeScreen : AppScreen
 }
