@@ -16,10 +16,10 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
-import com.noobzsociety.smsgames.navigation.AppScreen
-import com.noobzsociety.smsgames.navigation.NavigationBar
-import com.noobzsociety.smsgames.presentation.home.HomeScreen
-import com.noobzsociety.smsgames.presentation.permissions.PermissionsScreen
+import com.noobzsociety.smsgames.ui.navigation.AppScreen
+import com.noobzsociety.smsgames.ui.navigation.NavigationBar
+import com.noobzsociety.smsgames.ui.screens.home.HomeScreen
+import com.noobzsociety.smsgames.ui.screens.permissions.PermissionsScreen
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable

@@ -1,4 +1,4 @@
-package com.noobzsociety.smsgames.components
+package com.noobzsociety.smsgames.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme

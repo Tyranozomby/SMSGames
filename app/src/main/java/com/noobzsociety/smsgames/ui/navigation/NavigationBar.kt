@@ -1,10 +1,11 @@
-package com.noobzsociety.smsgames.navigation
+package com.noobzsociety.smsgames.ui.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Build
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,7 +23,7 @@ import com.noobzsociety.smsgames.ui.theme.SMSGamesTheme
 
 @Composable
 fun NavigationBar(navHostController: NavHostController) {
-    androidx.compose.material3.NavigationBar {
+    NavigationBar {
         val current by navHostController.currentBackStackEntryAsState()
 
         navigationBarItems.forEach { element ->

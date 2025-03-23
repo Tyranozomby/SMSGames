@@ -1,4 +1,4 @@
-package com.noobzsociety.smsgames.presentation.home
+package com.noobzsociety.smsgames.ui.screens.home
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Column
@@ -13,8 +13,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.noobzsociety.smsgames.components.CodeEditor
-import com.noobzsociety.smsgames.quickjs.QuickJsExecutor
+import com.noobzsociety.smsgames.ui.components.CodeEditor
+import com.noobzsociety.smsgames.engine.QuickJsExecutor
 import com.noobzsociety.smsgames.ui.theme.SMSGamesTheme
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel

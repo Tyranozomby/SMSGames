@@ -1,4 +1,4 @@
-package com.noobzsociety.smsgames.room.converters
+package com.noobzsociety.smsgames.data.room.converters
 
 import androidx.room.TypeConverter
 import kotlinx.datetime.Instant

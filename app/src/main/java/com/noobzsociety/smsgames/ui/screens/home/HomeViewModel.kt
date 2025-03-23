@@ -1,4 +1,4 @@
-package com.noobzsociety.smsgames.presentation.home
+package com.noobzsociety.smsgames.ui.screens.home
 
 import androidx.lifecycle.ViewModel
 

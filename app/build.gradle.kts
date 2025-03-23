@@ -66,8 +66,14 @@ dependencies {
     ksp(libs.room.compiler)
     implementation(libs.bundles.room)
 
+    // Datastore
+    implementation(libs.androidx.datastore.preferences)
+
     // Arrow
     implementation(libs.bundles.arrow)
+
+    // Commands
+    implementation(libs.clikt)
 
     // Code editor
     implementation(libs.codeEditor)

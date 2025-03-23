@@ -1,4 +1,4 @@
-package com.noobzsociety.smsgames.navigation
+package com.noobzsociety.smsgames.ui.navigation
 
 import kotlinx.serialization.Serializable
 

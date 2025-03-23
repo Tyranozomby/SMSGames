@@ -1,4 +1,4 @@
-package com.noobzsociety.smsgames.quickjs
+package com.noobzsociety.smsgames.engine
 
 import android.util.Log
 import arrow.core.Either

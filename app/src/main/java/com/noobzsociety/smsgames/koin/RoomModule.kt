@@ -3,7 +3,7 @@ package com.noobzsociety.smsgames.koin
 import android.content.Context
 import androidx.room.Room
 import androidx.sqlite.driver.AndroidSQLiteDriver
-import com.noobzsociety.smsgames.room.AppDatabase
+import com.noobzsociety.smsgames.data.room.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module
 

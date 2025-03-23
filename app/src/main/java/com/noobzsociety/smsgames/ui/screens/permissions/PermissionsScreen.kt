@@ -1,4 +1,4 @@
-package com.noobzsociety.smsgames.presentation.permissions
+package com.noobzsociety.smsgames.ui.screens.permissions
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button

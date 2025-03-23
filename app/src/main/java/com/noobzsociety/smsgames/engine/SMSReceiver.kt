@@ -5,9 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.telephony.SmsMessage
-import android.util.Log
+import org.koin.java.KoinJavaComponent.inject
 
 class SMSReceiver : BroadcastReceiver() {
+
+    private val smsHandler: SMSHandler by inject(SMSHandler::class.java)
 
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action != "android.provider.Telephony.SMS_RECEIVED") return
@@ -22,6 +24,6 @@ class SMSReceiver : BroadcastReceiver() {
             .filter { it.originatingAddress != null }
             .fold("" to "") { acc, msg -> msg.originatingAddress!! to acc.second + (msg.messageBody) }
 
-        Log.i("SMSReceiver", "Received SMS from ${fullMessage.first}: ${fullMessage.second}")
+        smsHandler.handleMessage(fullMessage.first, fullMessage.second)
     }
 }
