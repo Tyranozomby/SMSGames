@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.telephony.SmsMessage
 import org.koin.java.KoinJavaComponent.inject
 
-class SMSReceiver : BroadcastReceiver() {
+class SmsReceiver : BroadcastReceiver() {
 
-    private val smsHandler: SMSHandler by inject(SMSHandler::class.java)
+    private val smsHandler: SmsHandler by inject(SmsHandler::class.java)
 
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action != "android.provider.Telephony.SMS_RECEIVED") return
@@ -20,10 +20,11 @@ class SMSReceiver : BroadcastReceiver() {
         @Suppress("UNCHECKED_CAST", "DEPRECATION")
         val pdus = bundle.get("pdus") as Array<ByteArray>
 
-        val fullMessage = pdus.map { SmsMessage.createFromPdu(it, format) }
+        val smsMessage = pdus.map { SmsMessage.createFromPdu(it, format) }
             .filter { it.originatingAddress != null }
-            .fold("" to "") { acc, msg -> msg.originatingAddress!! to acc.second + (msg.messageBody) }
+            .fold("" to "") { acc, msg -> msg.originatingAddress!! to acc.second + msg.messageBody }
+            .let { SMSMessage(PhoneNumber(it.first), it.second) }
 
-        smsHandler.handleMessage(fullMessage.first, fullMessage.second)
+        smsHandler.dispatchMessageHandling(smsMessage)
     }
 }

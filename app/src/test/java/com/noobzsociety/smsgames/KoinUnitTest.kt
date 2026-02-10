@@ -1,6 +1,6 @@
 package com.noobzsociety.smsgames
 
-import com.noobzsociety.smsgames.koin.managerModule
+import com.noobzsociety.smsgames.koin.engineModule
 import com.noobzsociety.smsgames.koin.roomModule
 import com.noobzsociety.smsgames.koin.viewModelModule
 import org.junit.Test
@@ -13,7 +13,7 @@ class CheckModulesTest : KoinTest {
 
     @Test
     fun checkManagerModule() {
-        managerModule.verify()
+        engineModule.verify()
     }
 
     @Test

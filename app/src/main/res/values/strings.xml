@@ -1,3 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">SMS Games</string>
+
+    <string name="title_theme">Theme</string>
+    <string name="title_permissions">Permissions</string>
+    <string name="title_userinfos">Admin data</string>
+    <string name="title_gamemode_list">Gamemodes</string>
+    <string name="title_gamemode_details">New gamemode</string>
+    <string name="title_game_list">Games</string>
+    <string name="title_game_details">Game</string>
+    <string name="title_files">Imported files</string>
+
+    <string name="label_back">Back</string>
+    <string name="label_add">Add</string>
+    <string name="label_remove">Remove</string>
+    <string name="label_save">Save</string>
+
+    <string name="label_gamemode_name">Name</string>
+    <string name="label_gamemode_rules">Rules</string>
+    <string name="label_gamemode_code">Code</string>
+
+    <string name="placeholder_gamemode_name">My new gamemode</string>
+    <string name="placeholder_gamemode_rules">- Invite a friend to play with you\n- Pick your action\n- May the best one win!</string>
+
+    <string name="error_js_main_function_not_defined">Main function is not defined</string>
+    <string name="error_js_setup_function_not_defined">Setup function is not defined</string>
+    <string name="error_js_execution">The game crashed after the following error occurred: %1$s</string>
+    <string name="error_gamemode_name_empty">The name can\'t be blank</string>
+    <string name="error_gamemode_rules_empty">The rules can\'t be blank</string>
+
+    <string name="commands_commands_title">Commands</string>
+    <string name="commands_usage_title">All commands start with %1$s\n\nUsage:\n</string>
+    <string name="commands_usage_error">⚠️ Error:\n</string>
+    <string name="commands_missing_argument">%1$s is required</string>
+    <string name="commands_command_metavar">commands</string>
+    <string name="commands_arguments_metavar">value</string>
+    <string name="commands_no_such_subcommand">Command %1$s doesn\'t exist. Did you mean %2$s?</string>
+    <string name="commands_no_such_subcommand_empty">Command %1$s doesn\'t exist. Try %2$s to see all commands</string>
 </resources>

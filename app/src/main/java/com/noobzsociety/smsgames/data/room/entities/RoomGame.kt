@@ -40,9 +40,8 @@ data class RoomGame(
     @ColumnInfo(name = "owner_id")
     val ownerId: Long,
 
-    val start: Instant? = null,
+    val parameters: JSONObject,
     val data: JSONObject? = null,
-    val settings: JSONObject = JSONObject(),
 
     @ColumnInfo(name = "created_at")
     val createdAt: Instant = Clock.System.now(),

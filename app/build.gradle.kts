@@ -32,11 +32,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -54,6 +54,7 @@ dependencies {
     // Compose
     implementation(libs.bundles.androidx.compose)
     implementation (libs.androidx.navigation.compose)
+    implementation(libs.androidx.material.icons.extended)
 
     // Kotlinx
     implementation(libs.kotlinx.datetime)
@@ -67,10 +68,11 @@ dependencies {
     implementation(libs.bundles.room)
 
     // Datastore
-    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.bundles.multiplatformSettings)
 
     // Arrow
     implementation(libs.bundles.arrow)
+    implementation(libs.bundles.pedestal)
 
     // Commands
     implementation(libs.clikt)
@@ -80,6 +82,10 @@ dependencies {
 
     // QuickJS
     api(libs.quickjs)
+
+    // Clikt
+    implementation(libs.clikt)
+//    implementation("com.github.Tyranozomby:clikt:patch-1-94bb361bca-1")
 
     // Testing
     testImplementation(libs.junit)

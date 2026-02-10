@@ -2,7 +2,9 @@ package com.noobzsociety.smsgames.ui.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AttachFile
 import androidx.compose.material.icons.outlined.Build
+import androidx.compose.material.icons.outlined.History
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -76,8 +78,18 @@ private data class NavigationBarElement(
 
 private val navigationBarItems = listOf(
     NavigationBarElement(
-        screen = AppScreen.HomeScreen,
+        screen = AppScreen.Gamemode.ListScreen,
         icon = Icons.Outlined.Build,
         label = R.string.app_name
+    ),
+    NavigationBarElement(
+        screen = AppScreen.Game.ListScreen,
+        icon = Icons.Outlined.History,
+        label = R.string.title_game_list
+    ),
+    NavigationBarElement(
+        screen = AppScreen.Files,
+        icon = Icons.Outlined.AttachFile,
+        label = R.string.title_files
     ),
 )

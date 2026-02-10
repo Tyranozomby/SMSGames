@@ -6,32 +6,31 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 
 @Entity(
-    tableName = "player_game",
+    tableName = "player_to_game",
     primaryKeys = ["player_id", "game_id"],
     foreignKeys = [
         ForeignKey(
             entity = RoomPlayer::class,
             parentColumns = ["id"],
             childColumns = ["player_id"],
-            onDelete = ForeignKey.Companion.CASCADE
+            onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
             entity = RoomGame::class,
             parentColumns = ["id"],
             childColumns = ["game_id"],
-            onDelete = ForeignKey.Companion.CASCADE
+            onDelete = ForeignKey.CASCADE
         )
     ],
     indices = [
-        Index(value = ["player_id", "game_id", "order"], unique = true)
+        Index(value = ["player_id"], unique = true),
+        Index(value = ["game_id"]),
     ]
 )
-data class RoomPlayerGame(
+data class RoomPlayerToGame(
     @ColumnInfo(name = "player_id")
     val playerId: Long,
 
     @ColumnInfo(name = "game_id")
-    val gameId: Long,
-
-    val order: Int
+    val gameId: Long
 )

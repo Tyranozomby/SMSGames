@@ -11,10 +11,11 @@ import com.noobzsociety.smsgames.data.room.dao.PlayerDao
 import com.noobzsociety.smsgames.data.room.entities.RoomGame
 import com.noobzsociety.smsgames.data.room.entities.RoomGamemode
 import com.noobzsociety.smsgames.data.room.entities.RoomPlayer
+import com.noobzsociety.smsgames.data.room.entities.RoomPlayerToGame
 
 @TypeConverters(DefaultConverters::class, JsonConverters::class)
 @Database(
-    entities = [RoomGame::class, RoomGamemode::class, RoomPlayer::class],
+    entities = [RoomGame::class, RoomGamemode::class, RoomPlayer::class, RoomPlayerToGame::class],
     version = 1,
     exportSchema = false
 )

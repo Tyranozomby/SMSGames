@@ -9,10 +9,4 @@ class DefaultConverters {
 
     @TypeConverter
     fun instantToLong(instant: Instant?): Long? = instant?.toEpochMilliseconds()
-
-    @TypeConverter
-    fun uIntToInt(value: UInt): Int = value.toInt()
-
-    @TypeConverter
-    fun intToUInt(value: Int): UInt = value.toUInt()
 }

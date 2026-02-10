@@ -1,2 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+
+    <string name="title_theme">Thème</string>
+    <string name="title_permissions">Permissions</string>
+    <string name="title_userinfos">Données admin</string>
+    <string name="title_gamemode_list">Modes de jeu</string>
+    <string name="title_gamemode_details">Nouveau jeu</string>
+    <string name="title_game_list">Parties</string>
+    <string name="title_game_details">Partie</string>
+    <string name="title_files">Fichiers importés</string>
+
+    <string name="label_back">Retour</string>
+    <string name="label_add">Ajouter</string>
+    <string name="label_save">Sauver</string>
+    <string name="label_remove">Supprimer</string>
+
+    <string name="label_gamemode_name">Nom</string>
+    <string name="label_gamemode_rules">Règles</string>
+    <string name="label_gamemode_code">Code</string>
+
+    <string name="placeholder_gamemode_name">Mon nouveau jeu</string>
+    <string name="placeholder_gamemode_rules">- Invite un camarade de jeu\n- Choisis ton action\n- Que le meilleur gagne !</string>
+
+    <string name="error_js_main_function_not_defined">La fonction Main n\'est pas définie</string>
+    <string name="error_js_setup_function_not_defined">La fonction Setup n\'est pas définie</string>
+    <string name="error_js_execution">La partie s\'est arrêtée après avec l\'erreur suivante : %1$s</string>
+    <string name="error_gamemode_name_empty">Le nom ne peut pas être vide</string>
+    <string name="error_gamemode_rules_empty">Les règles ne peuvent pas être vides</string>
+
+    <string name="commands_commands_title">"Liste des commandes "</string>
+    <string name="commands_usage_title">Toutes les commandes commencent par un %1$s\n\nUtilisation :\n</string>
+    <string name="commands_usage_error">⚠️ Erreur :\n</string>
+    <string name="commands_missing_argument">%1$s est requis</string>
+    <string name="commands_command_metavar">commande</string>
+    <string name="commands_arguments_metavar">valeur</string>
+    <string name="commands_no_such_subcommand">La commande %1$s n\'existe pas. Peut-être vouliez-vous dire %2$s ?</string>
+    <string name="commands_no_such_subcommand_empty">La commande %1$s n\'existe pas. Essayez %2$s pour voir les commandes existantes.</string>
+</resources>

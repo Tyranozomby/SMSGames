@@ -1,57 +1,48 @@
 package com.noobzsociety.smsgames
 
-import android.Manifest
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.isGranted
-import com.google.accompanist.permissions.rememberMultiplePermissionsState
+import com.noobzsociety.smsgames.data.datastore.AppSettings
 import com.noobzsociety.smsgames.ui.navigation.AppScreen
-import com.noobzsociety.smsgames.ui.navigation.NavigationBar
-import com.noobzsociety.smsgames.ui.screens.home.HomeScreen
-import com.noobzsociety.smsgames.ui.screens.permissions.PermissionsScreen
+import com.noobzsociety.smsgames.ui.screens.files.FilesScreen
+import com.noobzsociety.smsgames.ui.screens.gamemodes.details.GamemodeDetailsScreen
+import com.noobzsociety.smsgames.ui.screens.gamemodes.list.GamemodeListScreen
+import com.noobzsociety.smsgames.ui.screens.games.list.GameListScreen
+import com.noobzsociety.smsgames.ui.screens.init.permissions.PermissionsScreen
+import com.noobzsociety.smsgames.ui.screens.init.theme.ThemeScreen
+import com.noobzsociety.smsgames.ui.screens.init.userinfos.UserInfosScreen
+import com.noobzsociety.smsgames.ui.screens.test.TestScreen
+import org.koin.compose.koinInject
+import org.koin.core.annotation.KoinExperimentalAPI
 
-@OptIn(ExperimentalPermissionsApi::class)
+@OptIn(ExperimentalPermissionsApi::class, KoinExperimentalAPI::class)
 @Composable
 fun AppNavigator() {
+    val settings: AppSettings = koinInject<AppSettings>()
+
     val navHostController: NavHostController = rememberNavController()
 
-    val smsPermissionsState = rememberMultiplePermissionsState(
-        listOf(
-            Manifest.permission.SEND_SMS,
-            Manifest.permission.RECEIVE_SMS,
-            Manifest.permission.READ_SMS
-        )
-    )
-    val allPermissionsGranted = smsPermissionsState.permissions.all { it.status.isGranted }
+    val isInitDone by settings.isInitDone.flow.collectAsState(false)
 
-    Scaffold(
+    NavHost(
         modifier = Modifier.fillMaxSize(),
-        bottomBar = {
-            NavigationBar(navHostController)
-        }
-    ) { innerPadding ->
-
-        NavHost(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .padding(horizontal = 16.dp),
             navController = navHostController,
-            startDestination = when (allPermissionsGranted) {
-                true -> AppScreen.HomeScreen
-                false -> AppScreen.PermissionsScreen
-            },
+        startDestination = when (isInitDone) {
+            true -> AppScreen.Gamemode.ListScreen
+//            true -> AppScreen.Test
+            false -> AppScreen.Init.ThemeScreen
+        },
             enterTransition = {
                 EnterTransition.None
             },
@@ -64,15 +55,57 @@ fun AppNavigator() {
             popExitTransition = {
                 ExitTransition.None
             }
-        ) {
-            composable<AppScreen.PermissionsScreen> {
-                PermissionsScreen(smsPermissionsState)
-            }
+    ) {
+        composable<AppScreen.Test> {
+            TestScreen(navHostController)
+        }
 
-            composable<AppScreen.HomeScreen> {
-                HomeScreen(navHostController)
-            }
+        initScreens(navHostController)
+
+        gamemodeScreens(navHostController)
+
+        gameScreens(navHostController)
+
+        composable<AppScreen.Files> {
+            FilesScreen(navHostController)
         }
     }
 }
 
+private fun NavGraphBuilder.initScreens(navHostController: NavHostController) {
+    composable<AppScreen.Init.ThemeScreen> {
+        ThemeScreen(navHostController)
+    }
+
+    composable<AppScreen.Init.PermissionsScreen> {
+        PermissionsScreen(navHostController)
+    }
+
+    composable<AppScreen.Init.UserInfosScreen> {
+        UserInfosScreen(navHostController)
+    }
+}
+
+private fun NavGraphBuilder.gamemodeScreens(navHostController: NavHostController) {
+    composable<AppScreen.Gamemode.ListScreen> {
+        GamemodeListScreen(navHostController)
+    }
+
+    composable<AppScreen.Gamemode.DetailsScreen> {
+        GamemodeDetailsScreen(
+            navHostController = navHostController,
+        )
+    }
+}
+
+private fun NavGraphBuilder.gameScreens(navHostController: NavHostController) {
+    composable<AppScreen.Game.ListScreen> {
+        GameListScreen(navHostController)
+    }
+
+    composable<AppScreen.Game.DetailsScreen> {
+//        GameDetailsScreen(
+//            navHostController = navHostController,
+//        )
+    }
+}

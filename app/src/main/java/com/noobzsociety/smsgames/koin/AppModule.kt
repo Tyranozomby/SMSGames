@@ -4,8 +4,10 @@ import org.koin.core.KoinApplication
 
 fun KoinApplication.setModules() = run {
     modules(
-        managerModule,
+        managersModule,
+        engineModule,
         viewModelModule,
+        settingsModule,
         roomModule
     )
 }

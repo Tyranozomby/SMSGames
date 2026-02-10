@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.noobzsociety.smsgames.engine.PhoneNumber
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 
@@ -23,14 +24,14 @@ data class RoomPlayer(
 
     val name: String,
 
+    @ColumnInfo(name = "phone_number")
+    val phoneNumber: PhoneNumber,
+
     @ColumnInfo(name = "is_tester")
     val isTester: Boolean = false,
 
-    @ColumnInfo(name = "is_master")
-    val isMaster: Boolean = false,
-
-    @ColumnInfo(name = "phone_number")
-    val phoneNumber: String,
+    @ColumnInfo(name = "is_admin")
+    val isAdmin: Boolean = false,
 
     @ColumnInfo(name = "created_at")
     val createdAt: Instant = Clock.System.now(),

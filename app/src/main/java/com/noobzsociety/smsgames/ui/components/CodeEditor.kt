@@ -14,6 +14,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,7 +35,7 @@ import com.wakaztahir.codeeditor.highlight.theme.CodeThemeType
 import com.wakaztahir.codeeditor.highlight.utils.parseCodeAsAnnotatedString
 
 @Composable
-fun CodeEditor(startValue: String, onValueChange: (String) -> Unit) {
+fun CodeEditor(value: String, onValueChange: (String) -> Unit) {
     val systemInDarkTheme = isSystemInDarkTheme()
 
     val parser = remember { PrettifyParser() }
@@ -54,7 +55,11 @@ fun CodeEditor(startValue: String, onValueChange: (String) -> Unit) {
     )
 
     var textFieldValue by remember {
-        mutableStateOf(TextFieldValue(parse(startValue)))
+        mutableStateOf(TextFieldValue(parse(value)))
+    }
+
+    LaunchedEffect(value) {
+        textFieldValue = textFieldValue.copy(annotatedString = parse(value))
     }
 
     val textStyle = MaterialTheme.typography.bodyMedium
@@ -85,7 +90,7 @@ fun CodeEditor(startValue: String, onValueChange: (String) -> Unit) {
             TextField(
                 ::parse,
                 textStyle,
-                startValue,
+                value,
                 onValueChange,
                 textFieldValue,
             ) { textFieldValue = it }
@@ -127,7 +132,7 @@ private fun TextField(
 private fun CodeEditorPreview() {
     SMSGamesTheme {
         CodeEditor(
-            startValue = """
+            value = """
             function helloWorld() {
                 console.log('Hello, World!');
             }

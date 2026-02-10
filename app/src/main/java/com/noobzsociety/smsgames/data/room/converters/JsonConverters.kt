@@ -1,7 +1,8 @@
 package com.noobzsociety.smsgames.data.room.converters
 
 import androidx.room.TypeConverter
-import org.json.JSONArray
+import com.noobzsociety.smsgames.data.room.entities.ParameterDefinition
+import kotlinx.serialization.json.Json
 import org.json.JSONObject
 
 class JsonConverters {
@@ -18,12 +19,12 @@ class JsonConverters {
     }
 
     @TypeConverter
-    fun fromArrayToString(jsonArray: JSONArray): String {
-        return jsonArray.toString()
+    fun settingsToString(settings: Map<String, ParameterDefinition>): String {
+        return Json.encodeToString(settings)
     }
 
     @TypeConverter
-    fun stringToArray(value: String): JSONArray {
-        return JSONArray(value)
+    fun stringToSettings(value: String): Map<String, ParameterDefinition> {
+        return Json.decodeFromString(value)
     }
 }
